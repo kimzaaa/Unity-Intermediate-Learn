@@ -4,10 +4,10 @@ using System.Collections;
 public class InterFade : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _canvasGroup;
-    [SerializeField] private float _fadeSpeed = 1f;
+    [SerializeField] private float _fadeDuration = 1f;
 
     [SerializeField] private bool _isShown;
-    
+    /*
     IEnumerator Fade(){
         float alpha = _isShown ? 0f : 1f; //if _isShown is true, alpha = 0, else alpha = 1
         if(_isShown){
@@ -29,10 +29,11 @@ public class InterFade : MonoBehaviour
         yield return new WaitForSeconds(0.5f); //wait for 0.1 seconds
         Debug.Log("Fade complete!"); //log the message
     }
+    */
     [ContextMenu("Toggle UI")]
     public void ToggleUI(){
         _isShown = !_isShown; 
 
-        StartCoroutine(Fade()); 
+        _canvasGroup.Fade(_isShown,_fadeDuration); //call the Fade method from the ExtensionMethod class
     }
 }
