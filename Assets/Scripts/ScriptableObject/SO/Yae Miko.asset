@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7c49f9f652f22458e8854c145b92c5, type: 3}
+  m_Name: Yae Miko
+  m_EditorClassIdentifier: 
+  Name: Yae Miko
+  Description: A kitsune of many facets
+  ElementalType: 3
+  Cost: 8
+  Health: 99
+  AttackDamage: 52
+  CharacterImage: {fileID: 21300000, guid: 544c7af2d5e50a048aeca5d50f4f9e39, type: 3}

@@ -1,31 +1,38 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : Singleton<PlayerController>
+public class PlayerController : Character
 {
     //TODO: Attributes
-    [Header("Player Attributes")]
-    [SerializeField] private Animator _animator;
-    [Tooltip("Player's speed.")]
-    [SerializeField] private float _walkSpeed = 1f;
-    [Tooltip("Player's run speed.")]
-    [SerializeField] private float _runSpeed = 2f;
-    [Range(0f,100f)] public  float _jumpForce = 10f;
-    [SerializeField] private Rigidbody _rigidbody;
-    [Space(10)]
+    private static PlayerController _instance;
+	public static PlayerController Instance {
+		get {
+			if (_instance == null) {
+				var objs = FindObjectsByType<PlayerController> (FindObjectsSortMode.None);
+				if (objs.Length > 0)
+					_instance = objs[0];
+				if (objs.Length > 1) {
+					Debug.LogError ("There is more than one " + typeof(PlayerController).Name + " in the scene.");
+				}
+				if (_instance == null) {
+					GameObject obj = new GameObject ();
+					obj.hideFlags = HideFlags.HideAndDontSave;
+					_instance = obj.AddComponent<PlayerController> ();
+				}
+			}
+			return _instance;
+		}
+	}
     
     private Vector2 _movementInput;
-    private float _speed;
-    private bool _isRunning = false;
 
     #region Input System
     private InputSystem_Actions _input;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _input = new InputSystem_Actions();
-
-        _speed = _walkSpeed;
     }
 
     void OnEnable()
@@ -58,7 +65,9 @@ public class PlayerController : Singleton<PlayerController>
     // TODO: Make it easier to read
     void FixedUpdate()
     {
+        _speed = _isRunning ? _runSpeed : _walkSpeed;
         Vector3 movement = new Vector3(_movementInput.x, 0, _movementInput.y);
+        
         movement *= _speed * 0.1f;
         transform.Translate(movement, Space.Self);
 
